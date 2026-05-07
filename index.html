@@ -528,15 +528,100 @@ body {
 @media (max-width: 760px) {
   :root { --nav-w: 0px; }
   .sidenav { display: none; }
-  .main { margin-left: 0; }
-  .home-hero, .home-gallery-section, .page-header, .page-body { padding-left: 24px; padding-right: 24px; }
+  .main { margin-left: 0; padding-top: 56px; }
+  .home-hero, .home-gallery-section, .page-header, .page-body { padding-left: 20px; padding-right: 20px; }
   .types-grid, .port-grid, .home-gallery { grid-template-columns: 1fr; }
   .modal-overlay { padding: 16px; }
   .form-grid { grid-template-columns: 1fr; }
+  .mobile-nav { display: flex !important; }
+}
+
+/* MOBILE TOP NAV */
+.mobile-nav {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+  height: 56px; align-items: center; justify-content: space-between;
+  padding: 0 20px;
+}
+.mobile-nav-logo {
+  font-family: 'Playfair Display', serif; font-size: 17px; letter-spacing: -0.3px;
+}
+.mobile-nav-logo em { font-style: italic; color: var(--accent); }
+.mobile-hamburger {
+  width: 36px; height: 36px; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 18px; color: var(--mid);
+}
+.mobile-menu {
+  display: none; position: fixed; inset: 0; z-index: 400;
+  background: rgba(45,37,53,0.5);
+}
+.mobile-menu.open { display: block; }
+.mobile-menu-panel {
+  position: absolute; top: 0; right: 0; bottom: 0; width: 280px;
+  background: var(--surface); padding: 28px 16px;
+  display: flex; flex-direction: column; gap: 2px;
+  overflow-y: auto;
+  animation: slideIn 0.25s ease;
+}
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+.mobile-menu-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 12px 20px; margin-bottom: 4px;
+  border-bottom: 1px solid var(--line);
+}
+.mobile-menu-logo { font-family: 'Playfair Display', serif; font-size: 18px; }
+.mobile-menu-logo em { font-style: italic; color: var(--accent); }
+.mobile-close {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 16px; color: var(--mid);
+}
+.mobile-status {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--mid); padding: 8px 12px 16px;
 }
 </style>
 </head>
 <body>
+
+<!-- MOBILE TOP NAV -->
+<div class="mobile-nav">
+  <div class="mobile-nav-logo">KlearS<em>Design</em></div>
+  <div class="mobile-hamburger" onclick="toggleMobileMenu()">☰</div>
+</div>
+
+<!-- MOBILE SLIDE MENU -->
+<div class="mobile-menu" id="mobileMenu" onclick="closeMobileOnBg(event)">
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-header">
+      <div class="mobile-menu-logo">KlearS<em>Design</em></div>
+      <div class="mobile-close" onclick="toggleMobileMenu()">×</div>
+    </div>
+    <div class="mobile-status">
+      <div class="status-dot"></div>
+      <span>Commissions Open</span>
+    </div>
+    <button class="nav-link active" onclick="goMobile('home')"><span class="nav-icon">✦</span>Home</button>
+    <button class="nav-link" onclick="goMobile('how')"><span class="nav-icon">◎</span>How to Commission</button>
+    <button class="nav-link" onclick="goMobile('types')"><span class="nav-icon">◈</span>Commission Types</button>
+    <button class="nav-link" onclick="goMobile('portfolio')"><span class="nav-icon">◻</span>Portfolio</button>
+    <button class="nav-link" onclick="goMobile('policies')"><span class="nav-icon">◷</span>Policies</button>
+    <button class="nav-link" onclick="goMobile('schedule')"><span class="nav-icon">◫</span>Schedule</button>
+    <button class="nav-link" onclick="goMobile('contact')"><span class="nav-icon">◌</span>Contact</button>
+    <div style="margin-top:auto;padding-top:20px;border-top:1px solid var(--line);display:flex;gap:10px;padding:20px 12px 0;">
+      <a class="social-link" href="https://x.com/YOUR_HANDLE" target="_blank">𝕏</a>
+      <a class="social-link" href="https://www.instagram.com/YOUR_HANDLE" target="_blank">ig</a>
+      <a class="social-link" href="https://vgen.co/YOUR_HANDLE" target="_blank">vg</a>
+    </div>
+  </div>
+</div>
 
 <!-- LEFT SIDEBAR -->
 <nav class="sidenav">
@@ -1193,7 +1278,24 @@ function calShift(d) {
 
 renderCal();
 
-// ── FORM: Month selector synced with slots ──
+// ── MOBILE MENU ──
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('open') ? 'hidden' : '';
+}
+function closeMobileOnBg(e) {
+  if (e.target === document.getElementById('mobileMenu')) toggleMobileMenu();
+}
+function goMobile(id) {
+  go(id);
+  // sync mobile nav active state
+  document.querySelectorAll('#mobileMenu .nav-link').forEach(l => {
+    l.classList.toggle('active', l.getAttribute('onclick') === `goMobile('${id}')`);
+  });
+  toggleMobileMenu();
+}
+
+
 function buildMonthOptions() {
   const sel = document.getElementById('monthSelect');
   if (!sel) return;
