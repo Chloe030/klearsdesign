@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KlearSDesign — Art Commissions</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:        #f7f5f9;
+  --surface:   #ffffff;
+  --surface2:  #f0edf5;
+  --pink:      #e8b4c8;
+  --pink-pale: #fdf4f8;
+  --blue:      #a8c4d8;
+  --blue-pale: #eef6fb;
+  --ink:       #2d2535;
+  --mid:       #7a6e82;
+  --soft:      #b0a8b8;
+  --line:      rgba(168,140,190,0.15);
+  --accent:    #c47fa0;
+  --accent2:   #7aaec4;
+  --nav-w:     240px;
+  --radius:    10px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+}
+
+/* ── LEFT SIDEBAR ── */
+.sidenav {
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: var(--nav-w);
+  background: var(--surface);
+  border-right: 1px solid var(--line);
+  display: flex; flex-direction: column;
+  padding: 36px 0 28px;
+  z-index: 200;
+  overflow-y: auto;
+}
+.sidenav-logo {
+  padding: 0 28px 24px;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; letter-spacing: -0.3px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 20px; line-height: 1.3;
+}
+.sidenav-logo em { font-style: italic; color: var(--accent); display: block; font-size: 13px; font-family: 'Outfit', sans-serif; margin-top: 3px; color: var(--mid); }
+.status-badge {
+  margin: 0 28px 22px;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 500; letter-spacing: 0.5px;
+  color: var(--mid);
+}
+.status-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #7cc47a;
+  box-shadow: 0 0 0 3px rgba(124,196,122,0.2);
+  flex-shrink: 0;
+}
+.status-dot.closed { background: #e07a7a; box-shadow: 0 0 0 3px rgba(224,122,122,0.2); }
+.nav-links { flex: 1; display: flex; flex-direction: column; gap: 2px; padding: 0 14px; }
+.nav-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 14px; border-radius: 8px;
+  font-size: 14px; color: var(--mid);
+  cursor: pointer; transition: all 0.18s;
+  border: none; background: none;
+  text-align: left; width: 100%; font-family: 'Outfit', sans-serif;
+}
+.nav-link:hover { background: var(--surface2); color: var(--ink); }
+.nav-link.active { background: var(--pink-pale); color: var(--accent); font-weight: 500; }
+.nav-icon { font-size: 15px; width: 20px; text-align: center; flex-shrink: 0; opacity: 0.65; }
+
+/* Social links */
+.social-links {
+  padding: 18px 28px 0;
+  border-top: 1px solid var(--line);
+  display: flex; gap: 12px; align-items: center;
+}
+.social-link {
+  display: flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; border-radius: 7px;
+  background: var(--surface2); color: var(--mid);
+  text-decoration: none; font-size: 13px; font-weight: 600;
+  border: 1px solid var(--line);
+  transition: all 0.15s; letter-spacing: -0.3px;
+}
+.social-link:hover { background: var(--pink-pale); color: var(--accent); border-color: var(--pink); }
+.social-label { font-size: 10px; color: var(--soft); margin-top: 8px; }
+
+/* ── MAIN ── */
+.main { margin-left: var(--nav-w); flex: 1; min-height: 100vh; }
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page.active .anim { animation: fadeUp 0.38s ease both; }
+.page.active .anim:nth-child(2) { animation-delay:.07s; }
+.page.active .anim:nth-child(3) { animation-delay:.13s; }
+.page.active .anim:nth-child(4) { animation-delay:.19s; }
+.page.active .anim:nth-child(5) { animation-delay:.25s; }
+
+/* ── HOME ── */
+.home-hero {
+  padding: 72px 68px 48px;
+  position: relative; overflow: hidden;
+}
+.home-hero::before {
+  content: ''; position: absolute; top: -80px; right: -80px;
+  width: 420px; height: 420px;
+  background: radial-gradient(circle, rgba(232,180,200,0.2) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 52px; }
+.hero-left { max-width: 580px; }
+.hero-social-top {
+  display: flex; gap: 10px; margin-bottom: 28px;
+}
+.soc-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; padding: 6px 14px; border-radius: 20px;
+  background: var(--surface); border: 1px solid var(--line);
+  color: var(--mid); text-decoration: none; transition: all 0.15s;
+  font-family: 'Outfit', sans-serif;
+}
+.soc-btn:hover { background: var(--pink-pale); border-color: var(--pink); color: var(--accent); }
+.hero-eyebrow {
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--pink); }
+.home-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(42px, 5vw, 68px);
+  font-weight: 400; line-height: 1.08; letter-spacing: -2px;
+  margin-bottom: 18px;
+}
+.home-hero h1 em { font-style: italic; color: var(--accent); }
+.hero-meta {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 18px;
+  font-size: 14px; color: var(--mid); font-weight: 300;
+}
+.hero-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--pink); }
+.hero-sub {
+  font-size: 15px; color: var(--mid); line-height: 1.75;
+  max-width: 460px; margin-bottom: 32px; font-weight: 300;
+}
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+.hero-tag {
+  font-size: 12px; padding: 5px 14px; border-radius: 20px;
+  border: 1px solid var(--line); color: var(--mid); background: var(--surface);
+}
+.hero-tag.pink { background: var(--pink-pale); border-color: var(--pink); color: var(--accent); }
+.hero-tag.blue { background: var(--blue-pale); border-color: var(--blue); color: var(--accent2); }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* Buttons */
+.btn {
+  display: inline-block; text-decoration: none; cursor: pointer;
+  font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 500;
+  padding: 12px 24px; border-radius: 8px; border: none; transition: all 0.18s;
+}
+.btn-primary { background: var(--accent); color: white; }
+.btn-primary:hover { background: #b86e90; }
+.btn-outline { background: transparent; color: var(--mid); border: 1px solid var(--line); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--pink-pale); }
+
+/* Home gallery */
+.home-gallery-section { padding: 0 68px 68px; }
+.gallery-label {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--soft); margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.gallery-label::before { content: ''; width: 20px; height: 1px; background: var(--soft); }
+.home-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.gallery-item {
+  border-radius: var(--radius); overflow: hidden;
+  aspect-ratio: 3/4; background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; cursor: pointer; transition: opacity 0.2s;
+}
+.gallery-item:first-child { grid-column: span 2; aspect-ratio: unset; min-height: 280px; }
+.gallery-item:hover { opacity: 0.88; }
+.gallery-item:hover .gallery-ov { opacity: 1; }
+.gallery-ph {
+  font-size: 11px; color: var(--soft); text-align: center; padding: 14px;
+  font-style: italic; position: relative; z-index: 1;
+}
+.gallery-ov {
+  position: absolute; inset: 0; background: rgba(45,37,53,0.4);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.2s;
+}
+.gallery-ov span {
+  font-size: 12px; color: white; padding: 5px 14px;
+  border: 1px solid rgba(255,255,255,0.5); border-radius: 20px;
+}
+.gallery-item-1 { background: linear-gradient(135deg,#fde8f2,#f5dfe9); }
+.gallery-item-2 { background: linear-gradient(135deg,#ece8fd,#e0d8f5); }
+.gallery-item-3 { background: linear-gradient(135deg,#e8f4fd,#d6e8f3); }
+.gallery-item-4 { background: linear-gradient(135deg,#fde8f0,#fce0ec); }
+.gallery-item-5 { background: linear-gradient(135deg,#f0f0e8,#e8e8d8); }
+
+/* ── PAGE LAYOUT ── */
+.page-header {
+  padding: 56px 68px 32px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+.eyebrow {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px;
+}
+.page-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3vw, 42px); font-weight: 400; letter-spacing: -0.8px;
+}
+.page-header p { margin-top: 8px; font-size: 15px; color: var(--mid); font-weight: 300; }
+.page-body { padding: 44px 68px; }
+
+/* ── HOW TO COMMISSION ── */
+.htc-step {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 28px 32px;
+  display: flex; gap: 24px; align-items: flex-start; margin-bottom: 12px;
+}
+.step-circle {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Playfair Display', serif; font-size: 17px;
+  background: var(--pink-pale); color: var(--accent); border: 1px solid var(--pink);
+}
+.htc-step h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; }
+.htc-step p { font-size: 14px; color: var(--mid); line-height: 1.7; font-weight: 300; }
+.htc-step a { color: var(--accent2); text-decoration: none; border-bottom: 1px solid var(--blue); }
+.htc-step a:hover { color: var(--accent); }
+
+/* Email highlight */
+.email-highlight {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: white;
+  font-size: 14px; font-weight: 500;
+  padding: 8px 18px; border-radius: 7px;
+  margin: 10px 0 14px; letter-spacing: 0.2px;
+}
+.email-highlight a {
+  color: var(--pink) !important; text-decoration: none !important;
+  border: none !important; font-weight: 600;
+}
+
+/* Email template */
+.email-template {
+  background: var(--surface2); border: 1px solid var(--line);
+  border-radius: 8px; padding: 20px 24px;
+  margin-top: 4px; font-size: 13px; line-height: 1.85;
+  color: var(--ink); position: relative;
+}
+.tpl-label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--soft); margin-bottom: 10px; font-weight: 500;
+}
+.tfield { color: var(--accent); font-weight: 500; }
+
+.email-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+.copy-btn {
+  font-size: 13px; padding: 9px 18px; border-radius: 7px;
+  background: var(--surface); border: 1px solid var(--line);
+  color: var(--mid); cursor: pointer; font-family: 'Outfit', sans-serif;
+  transition: all 0.15s;
+}
+.copy-btn:hover { background: var(--pink-pale); color: var(--accent); border-color: var(--pink); }
+.open-mail-btn {
+  font-size: 13px; padding: 9px 18px; border-radius: 7px;
+  background: var(--accent); color: white; border: none;
+  cursor: pointer; font-family: 'Outfit', sans-serif;
+  text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+  transition: all 0.15s;
+}
+.open-mail-btn:hover { background: #b86e90; }
+
+.payment-chips { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.chip {
+  font-size: 13px; padding: 6px 14px; border-radius: 20px;
+  background: var(--blue-pale); border: 1px solid var(--blue); color: var(--accent2);
+  display: flex; align-items: center; gap: 5px;
+}
+.chip.green { background: rgba(124,196,122,0.1); border-color: rgba(124,196,122,0.4); color: #5a9e58; }
+
+/* ── COMMISSION TYPES ── */
+.types-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px,1fr)); gap: 14px; }
+.type-card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s; cursor: pointer;
+}
+.type-card:hover { box-shadow: 0 6px 28px rgba(196,127,160,0.12); transform: translateY(-2px); }
+.type-img { height: 150px; display: flex; align-items: center; justify-content: center; }
+.type-img svg { opacity: 0.42; }
+.type-body { padding: 18px 20px 22px; }
+.type-tag {
+  display: inline-block; font-size: 10px; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-bottom: 9px;
+}
+.tpink { background: var(--pink-pale); color: var(--accent); border: 1px solid var(--pink); }
+.tblue { background: var(--blue-pale); color: var(--accent2); border: 1px solid var(--blue); }
+.tgray { background: #f5f5f0; color: #888; border: 1px solid #ddd; }
+.type-card h3 { font-size: 17px; font-weight: 500; margin-bottom: 5px; }
+.type-card .desc { font-size: 14px; color: var(--mid); line-height: 1.6; font-weight: 300; margin-bottom: 5px; }
+.type-card .incl { font-size: 12px; color: var(--soft); margin-bottom: 14px; line-height: 1.55; }
+.type-footer { display: flex; align-items: center; justify-content: space-between; }
+.type-price { font-family: 'Playfair Display', serif; font-size: 22px; }
+.type-price span { font-family: 'Outfit', sans-serif; font-size: 11px; color: var(--soft); }
+.view-more-btn {
+  font-size: 12px; font-weight: 500; padding: 7px 15px; border-radius: 6px;
+  background: var(--pink-pale); color: var(--accent); border: 1px solid var(--pink);
+  cursor: pointer; font-family: 'Outfit', sans-serif; transition: all 0.15s;
+}
+.view-more-btn:hover { background: var(--accent); color: white; }
+
+/* ── TYPE DETAIL MODAL ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(45,37,53,0.5); z-index: 500;
+  align-items: center; justify-content: center;
+  padding: 40px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--surface); border-radius: 14px;
+  max-width: 720px; width: 100%;
+  max-height: 85vh; overflow-y: auto;
+  position: relative;
+  animation: fadeUp 0.28s ease both;
+}
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--surface2); border: 1px solid var(--line);
+  color: var(--mid); font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; z-index: 1;
+}
+.modal-close:hover { background: var(--pink-pale); color: var(--accent); }
+.modal-hero { height: 200px; display: flex; align-items: center; justify-content: center; }
+.modal-hero svg { opacity: 0.38; }
+.modal-body { padding: 28px 32px 36px; }
+.modal-tag { margin-bottom: 10px; }
+.modal-body h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 400; letter-spacing: -0.5px; margin-bottom: 12px;
+}
+.modal-body .modal-desc { font-size: 15px; color: var(--mid); line-height: 1.75; margin-bottom: 24px; font-weight: 300; }
+.modal-gallery-label {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--soft); margin-bottom: 12px;
+}
+.modal-gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 24px; }
+.modal-gallery-item {
+  border-radius: 7px; aspect-ratio: 1;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--soft); font-style: italic; text-align: center; padding: 10px;
+}
+.modal-includes { margin-bottom: 24px; }
+.modal-includes h4 { font-size: 14px; font-weight: 500; margin-bottom: 10px; }
+.modal-includes ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.modal-includes li {
+  font-size: 13px; color: var(--mid); padding-left: 16px; position: relative; font-weight: 300;
+}
+.modal-includes li::before { content: '—'; position: absolute; left: 0; color: var(--pink); font-size: 11px; }
+.modal-price-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.modal-price { font-family: 'Playfair Display', serif; font-size: 30px; }
+.modal-price span { font-family: 'Outfit', sans-serif; font-size: 13px; color: var(--soft); }
+
+/* ── PORTFOLIO ── */
+.port-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+.filt {
+  font-size: 13px; padding: 7px 16px; border-radius: 20px;
+  border: 1px solid var(--line); background: var(--surface);
+  color: var(--mid); cursor: pointer; font-family: 'Outfit', sans-serif; transition: all 0.15s;
+}
+.filt.active, .filt:hover { background: var(--pink-pale); border-color: var(--pink); color: var(--accent); }
+.port-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 10px; }
+.port-card {
+  border-radius: var(--radius); aspect-ratio: 3/4;
+  position: relative; cursor: pointer; transition: opacity 0.2s;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.port-card:hover { opacity: 0.88; }
+.port-card:hover .port-ov { opacity: 1; }
+.port-ov {
+  position: absolute; inset: 0; background: rgba(45,37,53,0.45);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.2s;
+}
+.port-ov span { font-size: 12px; color: white; padding: 5px 14px; border: 1px solid rgba(255,255,255,0.5); border-radius: 20px; }
+.port-ph { font-size: 11px; color: var(--soft); text-align: center; padding: 12px; font-style: italic; }
+
+/* ── POLICIES ── */
+.policy-note {
+  background: var(--pink-pale); border: 1px solid var(--pink);
+  border-radius: 8px; padding: 14px 18px;
+  font-size: 14px; color: var(--accent); margin-bottom: 28px;
+}
+.pol-section { margin-bottom: 30px; }
+.pol-section h2 {
+  font-size: 16px; font-weight: 600; margin-bottom: 12px;
+  padding-bottom: 9px; border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: 8px;
+}
+.pol-section h2::before { content: ''; width: 3px; height: 14px; background: var(--pink); border-radius: 2px; }
+.pol-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.pol-list li {
+  font-size: 14px; color: var(--mid); line-height: 1.65;
+  padding-left: 18px; position: relative; font-weight: 300;
+}
+.pol-list li::before { content: '—'; position: absolute; left: 0; color: var(--pink); font-size: 11px; }
+
+/* ── SCHEDULE ── */
+.sched-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+.cal-nav { display: flex; align-items: center; gap: 14px; }
+.cal-nav-btns { display: flex; gap: 6px; }
+.cal-nav-btns button {
+  width: 32px; height: 32px; border-radius: 7px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--mid); cursor: pointer; font-size: 14px;
+  display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+}
+.cal-nav-btns button:hover { background: var(--pink-pale); border-color: var(--pink); color: var(--accent); }
+.cal-month-label { font-family: 'Playfair Display', serif; font-size: 22px; letter-spacing: -0.3px; }
+.cal-slots-remaining {
+  font-size: 12px; padding: 5px 14px; border-radius: 20px;
+  background: rgba(124,196,122,0.12); border: 1px solid rgba(124,196,122,0.35);
+  color: #5a9e58; font-weight: 500;
+}
+.cal-slots-remaining.few { background: rgba(232,180,120,0.15); border-color: rgba(232,180,120,0.4); color: #b8822a; }
+.cal-slots-remaining.full { background: var(--pink-pale); border-color: var(--pink); color: var(--accent); }
+
+.cal-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.cal-wdays { display: grid; grid-template-columns: repeat(7,1fr); background: var(--surface2); border-bottom: 1px solid var(--line); }
+.cal-wday { padding: 11px; text-align: center; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--soft); }
+.cal-grid { display: grid; grid-template-columns: repeat(7,1fr); }
+.cal-day { min-height: 76px; padding: 9px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.cal-day:nth-child(7n) { border-right: none; }
+.cal-empty { background: var(--bg); }
+.cal-today { background: var(--pink-pale); }
+.day-num { font-size: 13px; color: var(--mid); margin-bottom: 4px; }
+.cal-today .day-num { color: var(--accent); font-weight: 600; }
+.cal-empty .day-num { color: var(--soft); }
+.slot { font-size: 10px; padding: 2px 6px; border-radius: 3px; margin-bottom: 2px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.s-avail { background: rgba(124,196,122,0.15); color: #5a9e58; }
+.s-booked { background: var(--pink-pale); color: var(--accent); }
+.s-hold { background: var(--blue-pale); color: var(--accent2); }
+.legend { display: flex; gap: 18px; margin-top: 14px; flex-wrap: wrap; }
+.leg { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--mid); }
+.leg-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+/* ── CONTACT ── */
+.contact-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 36px; max-width: 520px; }
+.contact-card h2 { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 400; margin-bottom: 8px; }
+.contact-card > p { font-size: 14px; color: var(--mid); margin-bottom: 24px; font-weight: 300; }
+.email-link {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 15px; font-weight: 500; color: var(--ink);
+  text-decoration: none; padding: 14px 18px;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 8px;
+  margin-bottom: 18px; transition: all 0.15s;
+}
+.email-link:hover { background: var(--pink-pale); border-color: var(--pink); color: var(--accent); }
+.contact-note { font-size: 13px; color: var(--soft); line-height: 1.7; }
+.contact-note a { color: var(--accent2); text-decoration: none; }
+
+/* ── COMMISSION FORM ── */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-full { grid-column: 1 / -1; }
+.form-label { font-size: 13px; font-weight: 500; color: var(--ink); }
+.req { color: var(--accent); }
+.form-opt { font-size: 12px; color: var(--soft); font-weight: 300; }
+.form-input {
+  font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--ink);
+  background: var(--bg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 11px 14px;
+  outline: none; transition: border-color 0.18s, box-shadow 0.18s; width: 100%;
+}
+.form-input:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(196,127,160,0.1); }
+.form-select { appearance: none; cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23b0a8b8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+.form-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+.form-hint { font-size: 12px; color: var(--soft); margin-top: 2px; min-height: 16px; }
+.form-hint.warn { color: #b8822a; }
+.form-hint.full { color: var(--accent); }
+.file-drop { border: 1.5px dashed var(--line); border-radius: 8px; background: var(--bg); transition: border-color 0.18s; overflow: hidden; }
+.file-drop:hover, .file-drop.dragover { border-color: var(--pink); background: var(--pink-pale); }
+.file-drop-inner { padding: 24px; text-align: center; cursor: pointer; }
+.file-icon { font-size: 24px; margin-bottom: 6px; }
+.file-text { font-size: 13px; font-weight: 500; color: var(--mid); margin-bottom: 3px; }
+.file-hint { font-size: 11px; color: var(--soft); }
+.file-list { padding: 0 14px 12px; display: flex; flex-direction: column; gap: 6px; }
+.file-item { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--mid); background: var(--surface); padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line); }
+.file-remove { cursor: pointer; color: var(--soft); font-size: 14px; background: none; border: none; padding: 0; transition: color 0.15s; font-family: inherit; }
+.file-remove:hover { color: var(--accent); }
+.policy-check-label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 13px; color: var(--mid); line-height: 1.6; }
+.policy-check-label input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+.form-link { color: var(--accent2); text-decoration: none; border-bottom: 1px solid var(--blue); }
+.form-link:hover { color: var(--accent); }
+.submit-btn { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 500; padding: 12px 28px; border-radius: 8px; border: none; background: var(--accent); color: white; cursor: pointer; transition: all 0.18s; }
+.submit-btn:hover { background: #b86e90; }
+.submit-btn:disabled { background: var(--soft); cursor: not-allowed; }
+.form-success { margin-top: 16px; padding: 14px 18px; border-radius: 8px; background: rgba(124,196,122,0.12); border: 1px solid rgba(124,196,122,0.35); color: #4a8e48; font-size: 14px; line-height: 1.6; }
+.form-error { margin-top: 16px; padding: 14px 18px; border-radius: 8px; background: var(--pink-pale); border: 1px solid var(--pink); color: var(--accent); font-size: 14px; line-height: 1.6; }
+.form-error a { color: var(--accent); font-weight: 500; }
+
+/* MOBILE */
+@media (max-width: 760px) {
+  :root { --nav-w: 0px; }
+  .sidenav { display: none; }
+  .main { margin-left: 0; }
+  .home-hero, .home-gallery-section, .page-header, .page-body { padding-left: 24px; padding-right: 24px; }
+  .types-grid, .port-grid, .home-gallery { grid-template-columns: 1fr; }
+  .modal-overlay { padding: 16px; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- LEFT SIDEBAR -->
+<nav class="sidenav">
+  <div class="sidenav-logo">
+    KlearSDesign
+    <em>Art Commissions</em>
+  </div>
+  <div class="status-badge">
+    <div class="status-dot"></div>
+    <span>Commissions Open</span>
+  </div>
+  <div class="nav-links">
+    <button class="nav-link active" onclick="go('home')"><span class="nav-icon">✦</span>Home</button>
+    <button class="nav-link" onclick="go('how')"><span class="nav-icon">◎</span>How to Commission</button>
+    <button class="nav-link" onclick="go('types')"><span class="nav-icon">◈</span>Commission Types</button>
+    <button class="nav-link" onclick="go('portfolio')"><span class="nav-icon">◻</span>Portfolio</button>
+    <button class="nav-link" onclick="go('policies')"><span class="nav-icon">◷</span>Policies</button>
+    <button class="nav-link" onclick="go('schedule')"><span class="nav-icon">◫</span>Schedule</button>
+    <button class="nav-link" onclick="go('contact')"><span class="nav-icon">◌</span>Contact</button>
+  </div>
+  <div class="social-links">
+    <a class="social-link" href="https://x.com/YOUR_HANDLE" target="_blank" title="X / Twitter">𝕏</a>
+    <a class="social-link" href="https://www.instagram.com/YOUR_HANDLE" target="_blank" title="Instagram">ig</a>
+    <a class="social-link" href="https://vgen.co/YOUR_HANDLE" target="_blank" title="VGEN">vg</a>
+  </div>
+</nav>
+
+<main class="main">
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="home-hero">
+      <div class="hero-top">
+        <div class="hero-left">
+          <div class="hero-social-top anim">
+            <a class="soc-btn" href="https://x.com/YOUR_HANDLE" target="_blank">𝕏 Twitter / X</a>
+            <a class="soc-btn" href="https://www.instagram.com/YOUR_HANDLE" target="_blank">◎ Instagram</a>
+            <a class="soc-btn" href="https://vgen.co/YOUR_HANDLE" target="_blank">✦ VGEN</a>
+          </div>
+          <div class="hero-eyebrow anim">Commissions Open</div>
+          <h1 class="anim">KlearS<em>Design</em></h1>
+          <div class="hero-meta anim">
+            <span>📍 Vancouver, Canada</span>
+            <div class="hero-meta-dot"></div>
+            <span>Freelance Illustrator</span>
+          </div>
+          <p class="hero-sub anim">Custom chibi & anime-style illustrations — characters, couples, families. Soft lines, expressive style, made with care.</p>
+          <div class="hero-tags anim">
+            <span class="hero-tag pink">LGBTQ+ Friendly</span>
+            <span class="hero-tag blue">English Communication</span>
+            <span class="hero-tag">Sketch Preview Included</span>
+            <span class="hero-tag">PayPal · e-Transfer</span>
+          </div>
+          <div class="hero-actions anim">
+            <button class="btn btn-primary" onclick="go('how')">How to Commission</button>
+            <button class="btn btn-outline" onclick="go('types')">View Pricing</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-gallery-section">
+      <div class="gallery-label anim">Recent Work</div>
+      <div class="home-gallery anim">
+        <div class="gallery-item gallery-item-1" onclick="go('portfolio')">
+          <div class="gallery-ph">Add your featured artwork here<br><br>Recommended: your best piece</div>
+          <div class="gallery-ov"><span>View Portfolio</span></div>
+        </div>
+        <div class="gallery-item gallery-item-2" onclick="go('portfolio')">
+          <div class="gallery-ph">Artwork 2</div>
+          <div class="gallery-ov"><span>Chibi</span></div>
+        </div>
+        <div class="gallery-item gallery-item-3" onclick="go('portfolio')">
+          <div class="gallery-ph">Artwork 3</div>
+          <div class="gallery-ov"><span>Couple</span></div>
+        </div>
+        <div class="gallery-item gallery-item-4" onclick="go('portfolio')">
+          <div class="gallery-ph">Artwork 4</div>
+          <div class="gallery-ov"><span>Full Body</span></div>
+        </div>
+        <div class="gallery-item gallery-item-5" onclick="go('portfolio')">
+          <div class="gallery-ph">Artwork 5</div>
+          <div class="gallery-ov"><span>Sketch Page</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW TO COMMISSION -->
+  <div class="page" id="page-how">
+    <div class="page-header anim">
+      <div class="eyebrow">Guide</div>
+      <h1>How to Commission</h1>
+      <p>Fill in the form below — I'll get back to you within 1–2 business days.</p>
+    </div>
+    <div class="page-body">
+
+      <!-- Steps 1 & 2 -->
+      <div class="htc-step anim">
+        <div class="step-circle">1</div>
+        <div>
+          <h3>Check the Schedule</h3>
+          <p>Before submitting, check my <a href="#" onclick="go('schedule');return false;">Schedule</a> to confirm available slots in your preferred month. The month selector in the form below only shows months with open slots.</p>
+        </div>
+      </div>
+
+      <div class="htc-step anim">
+        <div class="step-circle">2</div>
+        <div>
+          <h3>Read the Policies</h3>
+          <p>Please read my <a href="#" onclick="go('policies');return false;">Policies</a> carefully. You'll need to confirm you've read them before submitting.</p>
+        </div>
+      </div>
+
+      <!-- Step 3: Form -->
+      <div class="htc-step anim" style="flex-direction:column;gap:0;">
+        <div style="display:flex;gap:24px;align-items:flex-start;margin-bottom:20px;">
+          <div class="step-circle">3</div>
+          <div>
+            <h3>Submit Your Inquiry</h3>
+            <p>Fill in the form below and hit Send. I'll reply to confirm whether I can take your commission.</p>
+          </div>
+        </div>
+
+        <!-- FORM -->
+        <form id="commissionForm" action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="access_key" value="e06eb939-82f9-4ff3-9fd6-f84f705535ed">
+          <input type="hidden" name="subject" value="New Commission Inquiry — KlearSDesign">
+          <input type="hidden" name="redirect" value="false">
+          <input type="checkbox" name="botcheck" style="display:none">
+
+          <div class="form-grid">
+
+            <!-- Name -->
+            <div class="form-group">
+              <label class="form-label">Your Name <span class="req">*</span></label>
+              <input class="form-input" type="text" name="name" placeholder="e.g. Alex" required>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label class="form-label">Your Email <span class="req">*</span></label>
+              <input class="form-input" type="email" name="email" placeholder="you@example.com" required>
+            </div>
+
+            <!-- Commission Type -->
+            <div class="form-group">
+              <label class="form-label">Commission Type <span class="req">*</span></label>
+              <select class="form-input form-select" name="commission_type" required>
+                <option value="" disabled selected>Select a type…</option>
+                <option>Chibi</option>
+                <option>Bust Portrait</option>
+                <option>Full Body</option>
+                <option>Couple &amp; Ship</option>
+                <option>Sketch Page</option>
+              </select>
+            </div>
+
+            <!-- Preferred Month — synced with slots -->
+            <div class="form-group">
+              <label class="form-label">Preferred Month <span class="req">*</span></label>
+              <select class="form-input form-select" name="preferred_month" id="monthSelect" required>
+                <option value="" disabled selected>Select a month…</option>
+              </select>
+              <div class="form-hint" id="monthHint"></div>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group form-full">
+              <label class="form-label">Character / Commission Description <span class="req">*</span></label>
+              <textarea class="form-input form-textarea" name="description" placeholder="Describe your character — name, personality, outfit, color palette, pose idea, any references you have in mind…" required></textarea>
+            </div>
+
+            <!-- Attachment note -->
+            <div class="form-group form-full">
+              <label class="form-label">Reference Images <span class="form-opt">(optional)</span></label>
+              <div style="background:var(--blue-pale);border:1px solid var(--blue);border-radius:8px;padding:14px 18px;display:flex;align-items:flex-start;gap:10px;">
+                <span style="font-size:16px;">📎</span>
+                <div>
+                  <div style="font-size:13px;color:var(--accent2);font-weight:500;margin-bottom:3px;">Send references via email</div>
+                  <div style="font-size:13px;color:var(--mid);font-weight:300;line-height:1.6;">After submitting this form, simply reply to my confirmation email with your reference images attached. PNG, JPG, or PDF accepted.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Additional Notes -->
+            <div class="form-group form-full">
+              <label class="form-label">Additional Notes <span class="form-opt">(optional)</span></label>
+              <textarea class="form-input form-textarea" name="additional_notes" rows="3" placeholder="Anything else I should know — deadline, special requests, etc."></textarea>
+            </div>
+
+            <!-- Policy confirmation -->
+            <div class="form-group form-full">
+              <label class="policy-check-label">
+                <input type="checkbox" name="policy_agreed" id="policyCheck" required>
+                <span>I have read and agree to the <a href="#" onclick="go('policies');return false;" class="form-link">Policies</a>, including the no-refund policy after sketch approval and usage rights terms.</span>
+              </label>
+            </div>
+
+          </div>
+
+          <div style="margin-top:24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+            <button type="submit" class="submit-btn" id="submitBtn">Send Inquiry →</button>
+            <span style="font-size:12px;color:var(--soft);">I'll reply within 1–2 business days</span>
+          </div>
+
+          <div id="formSuccess" class="form-success" style="display:none;">
+            ✓ Inquiry sent! I'll get back to you within 1–2 business days at the email you provided.
+          </div>
+          <div id="formError" class="form-error" style="display:none;">
+            Something went wrong. Please try emailing me directly at <a href="mailto:keemino030@gmail.com">keemino030@gmail.com</a>.
+          </div>
+        </form>
+      </div>
+
+      <!-- Steps 4 & 5 -->
+      <div class="htc-step anim">
+        <div class="step-circle">4</div>
+        <div>
+          <h3>Receive Confirmation & Pay</h3>
+          <p>If I can take your commission, I'll reply with a quote and payment details. I accept:</p>
+          <div class="payment-chips">
+            <div class="chip">💳 PayPal Invoice</div>
+            <div class="chip">🍁 e-Transfer (Canada)</div>
+            <div class="chip green">💚 Alipay</div>
+            <div class="chip green">💚 WeChat Pay</div>
+          </div>
+          <p style="margin-top:12px;font-size:13px;color:var(--mid);font-weight:300;">Full payment is required upfront before work begins.</p>
+        </div>
+      </div>
+
+      <div class="htc-step anim">
+        <div class="step-circle">5</div>
+        <div>
+          <h3>Work Begins — Progress Updates</h3>
+          <p>After payment, I'll contact you via email for detailed references. I share progress images at each stage — sketch, lineart, and final color — so you can follow along and request revisions as agreed.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COMMISSION TYPES -->
+  <div class="page" id="page-types">
+    <div class="page-header anim">
+      <div class="eyebrow">Pricing</div>
+      <h1>Commission Types</h1>
+      <p>Click any card to see more details and examples.</p>
+    </div>
+    <div class="page-body">
+      <div class="types-grid">
+
+        <div class="type-card anim" onclick="openModal('chibi')">
+          <div class="type-img" style="background:linear-gradient(135deg,#fdf4f8,#f5dfe9);">
+            <svg width="65" height="80" viewBox="0 0 65 80"><circle cx="32" cy="24" r="17" fill="#c47fa0"/><rect x="13" y="45" width="38" height="28" rx="8" fill="#c47fa0"/><circle cx="32" cy="24" r="9" fill="#fff" opacity="0.25"/></svg>
+          </div>
+          <div class="type-body">
+            <span class="type-tag tpink">Chibi</span>
+            <h3>Chibi</h3>
+            <p class="desc">Super-deformed cute style. Big head, small body. Perfect for icons, stickers, or gift art.</p>
+            <p class="incl">Sketch preview · flat or soft shading · transparent PNG</p>
+            <div class="type-footer">
+              <div class="type-price">$— <span>and up</span></div>
+              <div class="view-more-btn">View Details →</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="type-card anim" onclick="openModal('bust')">
+          <div class="type-img" style="background:linear-gradient(135deg,#f5f0fb,#e8ddf5);">
+            <svg width="62" height="76" viewBox="0 0 62 76"><circle cx="31" cy="23" r="16" fill="#9e7abf"/><rect x="16" y="43" width="30" height="24" rx="6" fill="#9e7abf"/></svg>
+          </div>
+          <div class="type-body">
+            <span class="type-tag tpink">Portrait</span>
+            <h3>Bust Portrait</h3>
+            <p class="desc">Head and shoulders, anime style. Clean and detailed — great for profile pictures or character sheets.</p>
+            <p class="incl">Sketch preview · full color · simple background · PNG</p>
+            <div class="type-footer">
+              <div class="type-price">$— <span>and up</span></div>
+              <div class="view-more-btn">View Details →</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="type-card anim" onclick="openModal('fullbody')">
+          <div class="type-img" style="background:linear-gradient(135deg,#eef6fb,#d6e8f3);">
+            <svg width="48" height="90" viewBox="0 0 48 90"><circle cx="24" cy="15" r="12" fill="#7aaec4"/><rect x="10" y="30" width="28" height="38" rx="5" fill="#7aaec4"/><rect x="12" y="68" width="9" height="18" rx="4" fill="#7aaec4"/><rect x="27" y="68" width="9" height="18" rx="4" fill="#7aaec4"/></svg>
+          </div>
+          <div class="type-body">
+            <span class="type-tag tblue">Full Body</span>
+            <h3>Full Body</h3>
+            <p class="desc">Complete character from head to toe. Outfit, pose, expression fully rendered. Optional background.</p>
+            <p class="incl">Sketch preview · full color · posed character · PNG</p>
+            <div class="type-footer">
+              <div class="type-price">$— <span>and up</span></div>
+              <div class="view-more-btn">View Details →</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="type-card anim" onclick="openModal('couple')">
+          <div class="type-img" style="background:linear-gradient(135deg,#fdf4f8,#fce8f0);">
+            <svg width="86" height="70" viewBox="0 0 86 70"><circle cx="28" cy="21" r="14" fill="#e8a0be"/><circle cx="58" cy="21" r="14" fill="#c47fa0"/><rect x="11" y="38" width="26" height="26" rx="5" fill="#e8a0be"/><rect x="49" y="38" width="26" height="26" rx="5" fill="#c47fa0"/></svg>
+          </div>
+          <div class="type-body">
+            <span class="type-tag tpink">Couple</span>
+            <h3>Couple & Ship</h3>
+            <p class="desc">Two characters together — romantic, platonic, or anything in between. All pairings welcome. LGBTQ+ friendly.</p>
+            <p class="incl">Sketch preview · full color · interaction pose · PNG</p>
+            <div class="type-footer">
+              <div class="type-price">$— <span>and up</span></div>
+              <div class="view-more-btn">View Details →</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="type-card anim" onclick="openModal('sketch')">
+          <div class="type-img" style="background:linear-gradient(135deg,#f5f5f0,#e8e8de);">
+            <svg width="86" height="76" viewBox="0 0 86 76"><rect x="4" y="4" width="36" height="30" rx="4" fill="#a0a088" opacity="0.55"/><rect x="46" y="4" width="36" height="30" rx="4" fill="#a0a088" opacity="0.38"/><rect x="4" y="42" width="36" height="30" rx="4" fill="#a0a088" opacity="0.38"/><rect x="46" y="42" width="36" height="30" rx="4" fill="#a0a088" opacity="0.55"/></svg>
+          </div>
+          <div class="type-body">
+            <span class="type-tag tgray">Sketches</span>
+            <h3>Sketch Page</h3>
+            <p class="desc">Multiple loose sketches of one or more characters on a single page. Expressions, poses, outfit variations.</p>
+            <p class="incl">Multiple sketches · light rendering · PNG</p>
+            <div class="type-footer">
+              <div class="type-price">$— <span>and up</span></div>
+              <div class="view-more-btn">View Details →</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <p style="margin-top:20px;font-size:13px;color:var(--soft);text-align:center;">Exact pricing confirmed after inquiry. Prices vary by complexity, detail, and background.</p>
+    </div>
+  </div>
+
+  <!-- PORTFOLIO -->
+  <div class="page" id="page-portfolio">
+    <div class="page-header anim">
+      <div class="eyebrow">Work</div>
+      <h1>Portfolio</h1>
+      <p>Recent commissions. Hover any piece to see the type.</p>
+    </div>
+    <div class="page-body">
+      <div class="port-filter anim">
+        <button class="filt active" onclick="portFilter('all',this)">All</button>
+        <button class="filt" onclick="portFilter('chibi',this)">Chibi</button>
+        <button class="filt" onclick="portFilter('portrait',this)">Portrait</button>
+        <button class="filt" onclick="portFilter('fullbody',this)">Full Body</button>
+        <button class="filt" onclick="portFilter('couple',this)">Couple & Ship</button>
+        <button class="filt" onclick="portFilter('sketch',this)">Sketch Page</button>
+      </div>
+      <div class="port-grid anim" id="portGrid">
+        <div class="port-card" data-type="chibi" style="background:#fde8f2;"><div class="port-ph">Add chibi art</div><div class="port-ov"><span>Chibi</span></div></div>
+        <div class="port-card" data-type="portrait" style="background:#ece8fd;"><div class="port-ph">Add portrait</div><div class="port-ov"><span>Bust Portrait</span></div></div>
+        <div class="port-card" data-type="fullbody" style="background:#e8f4fd;"><div class="port-ph">Add full body</div><div class="port-ov"><span>Full Body</span></div></div>
+        <div class="port-card" data-type="couple" style="background:#fde8f0;"><div class="port-ph">Add couple art</div><div class="port-ov"><span>Couple & Ship</span></div></div>
+        <div class="port-card" data-type="sketch" style="background:#f0f0e8;"><div class="port-ph">Add sketch page</div><div class="port-ov"><span>Sketch Page</span></div></div>
+        <div class="port-card" data-type="chibi" style="background:#f8e8fd;"><div class="port-ph">Add artwork</div><div class="port-ov"><span>Chibi</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POLICIES -->
+  <div class="page" id="page-policies">
+    <div class="page-header anim">
+      <div class="eyebrow">Terms</div>
+      <h1>Policies</h1>
+      <p>Please read carefully before commissioning.</p>
+    </div>
+    <div class="page-body">
+      <div class="policy-note anim">By sending an inquiry, you confirm you have read and agreed to all policies below.</div>
+      <div class="pol-section anim"><h2>General</h2><ul class="pol-list"><li>I reserve the right to decline any commission without explanation.</li><li>All commissions are for personal use unless commercial rights are discussed in advance.</li><li>Please provide clear references. The more detail, the better.</li><li>Add your own policies here.</li></ul></div>
+      <div class="pol-section anim"><h2>Payment</h2><ul class="pol-list"><li>Full payment is required upfront before work begins.</li><li>I accept PayPal invoice, e-Transfer (Canada), Alipay, and WeChat Pay.</li><li>Payment confirms your agreement to all policies listed here.</li></ul></div>
+      <div class="pol-section anim"><h2>Refunds & Cancellations</h2><ul class="pol-list"><li>No refunds once work has begun (after sketch approval).</li><li>If I cannot complete your commission, a full refund will be issued.</li><li>If you cancel before sketch approval, a partial refund may be offered at my discretion.</li><li>Add your specific refund terms here.</li></ul></div>
+      <div class="pol-section anim"><h2>Revisions</h2><ul class="pol-list"><li>One round of revisions included at the sketch stage.</li><li>Major changes after sketch approval may incur additional fees.</li><li>No revisions after the final file is delivered.</li></ul></div>
+      <div class="pol-section anim"><h2>Will Draw / Won't Draw</h2><ul class="pol-list"><li>✓ OCs, fan art, couples, LGBTQ+ characters, real people (stylized/anime)</li><li>✗ NSFW / explicit content</li><li>✗ Minors in romantic or suggestive contexts</li><li>✗ Hate symbols or discriminatory content</li></ul></div>
+      <div class="pol-section anim"><h2>Usage Rights</h2><ul class="pol-list"><li>You may use the artwork for personal, non-commercial purposes.</li><li>You may not resell, redistribute, or claim the artwork as your own.</li><li>I retain the right to post artwork to my portfolio unless otherwise agreed.</li><li>Commercial licensing available — please discuss before ordering.</li></ul></div>
+    </div>
+  </div>
+
+  <!-- SCHEDULE -->
+  <div class="page" id="page-schedule">
+    <div class="page-header anim">
+      <div class="eyebrow">Availability</div>
+      <h1>Schedule</h1>
+      <p>Check available slots before inquiring. All slots are month-based.</p>
+    </div>
+    <div class="page-body">
+      <div class="sched-top anim">
+        <div class="cal-nav">
+          <div class="cal-nav-btns">
+            <button onclick="calShift(-1)">←</button>
+            <button onclick="calShift(1)">→</button>
+          </div>
+          <div class="cal-month-label" id="calLabel"></div>
+          <div class="cal-slots-remaining" id="slotsRemaining"></div>
+        </div>
+        <button class="btn btn-outline" style="font-size:13px;padding:9px 18px;" onclick="go('how')">How to Book →</button>
+      </div>
+      <div class="cal-wrap anim">
+        <div class="cal-wdays">
+          <div class="cal-wday">Sun</div><div class="cal-wday">Mon</div><div class="cal-wday">Tue</div>
+          <div class="cal-wday">Wed</div><div class="cal-wday">Thu</div><div class="cal-wday">Fri</div>
+          <div class="cal-wday">Sat</div>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+      <div class="legend anim">
+        <div class="leg"><div class="leg-dot" style="background:rgba(124,196,122,0.25);"></div> Available</div>
+        <div class="leg"><div class="leg-dot" style="background:var(--pink-pale);border:1px solid var(--pink);"></div> Booked</div>
+        <div class="leg"><div class="leg-dot" style="background:var(--blue-pale);border:1px solid var(--blue);"></div> On Hold</div>
+      </div>
+      <div style="margin-top:22px;padding:18px 22px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);" class="anim">
+        <div style="font-size:14px;font-weight:500;margin-bottom:6px;">About Slots</div>
+        <p style="font-size:14px;color:var(--mid);line-height:1.7;font-weight:300;">Each slot represents one commission. I take a limited number per month to maintain quality. Edit the slot data in the code to update your availability.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="page" id="page-contact">
+    <div class="page-header anim">
+      <div class="eyebrow">Get in Touch</div>
+      <h1>Contact</h1>
+      <p>For commissions, please follow the How to Commission guide first.</p>
+    </div>
+    <div class="page-body">
+      <div class="contact-card anim">
+        <h2>Let's work together</h2>
+        <p>I communicate in English via email. Response time is typically 1–2 business days.</p>
+        <a class="email-link" href="mailto:keemino030@gmail.com">✉ keemino030@gmail.com</a>
+        <p class="contact-note">
+          For commission inquiries, use the template on the <a href="#" onclick="go('how');return false;">How to Commission</a> page.<br><br>
+          Payment accepted via PayPal, e-Transfer, Alipay, or WeChat Pay.<br>
+          I do not take commission requests through social media DMs.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- TYPE DETAIL MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-hero" id="modalHero"></div>
+    <div class="modal-body">
+      <div class="modal-tag" id="modalTag"></div>
+      <h2 id="modalTitle"></h2>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-gallery-label">Example Works</div>
+      <div class="modal-gallery" id="modalGallery"></div>
+      <div class="modal-includes" id="modalIncludes"></div>
+      <div class="modal-price-row">
+        <div class="modal-price" id="modalPrice"></div>
+        <a class="open-mail-btn" id="modalInquireBtn">✉ Inquire for This Type →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const TYPES = {
+  chibi: {
+    tag: '<span class="type-tag tpink">Chibi</span>',
+    title: 'Chibi',
+    desc: 'Super-deformed cute style with a big head and small body. Great for icons, stickers, gifts, or just because it\'s adorable. Add your detailed description here — what makes your chibi style unique, your process, what clients can expect.',
+    heroBg: 'linear-gradient(135deg,#fdf4f8,#f5dfe9)',
+    heroSvg: '<svg width="90" height="110" viewBox="0 0 90 110"><circle cx="45" cy="33" r="26" fill="#c47fa0"/><rect x="18" y="62" width="54" height="40" rx="12" fill="#c47fa0"/><circle cx="45" cy="33" r="14" fill="#fff" opacity="0.2"/></svg>',
+    galleries: ['#fde8f2','#f8dff0','#fce8f5'],
+    includes: ['Sketch preview for approval','Flat or soft cell shading','Simple or no background','Transparent PNG, high resolution','Personal use license'],
+    price: '$—',
+    mailType: 'Chibi'
+  },
+  bust: {
+    tag: '<span class="type-tag tpink">Portrait</span>',
+    title: 'Bust Portrait',
+    desc: 'Head and shoulders portrait in anime style. Clean linework, detailed features, expressive. Great for profile pictures, character references, or framing. Add your detailed description here.',
+    heroBg: 'linear-gradient(135deg,#f5f0fb,#e8ddf5)',
+    heroSvg: '<svg width="85" height="105" viewBox="0 0 85 105"><circle cx="42" cy="32" r="22" fill="#9e7abf"/><rect x="20" y="58" width="45" height="34" rx="8" fill="#9e7abf"/></svg>',
+    galleries: ['#ece8fd','#e8e0f8','#f0ecfd'],
+    includes: ['Sketch preview for approval','Full color with shading','Simple or gradient background','High-resolution PNG','Personal use license'],
+    price: '$—',
+    mailType: 'Bust Portrait'
+  },
+  fullbody: {
+    tag: '<span class="type-tag tblue">Full Body</span>',
+    title: 'Full Body',
+    desc: 'Complete character illustration from head to toe. Outfit, pose, expression — all fully rendered. Optional detailed background available. Add your detailed description here.',
+    heroBg: 'linear-gradient(135deg,#eef6fb,#d6e8f3)',
+    heroSvg: '<svg width="60" height="120" viewBox="0 0 60 120"><circle cx="30" cy="18" r="15" fill="#7aaec4"/><rect x="13" y="36" width="34" height="50" rx="6" fill="#7aaec4"/><rect x="15" y="86" width="11" height="24" rx="5" fill="#7aaec4"/><rect x="34" y="86" width="11" height="24" rx="5" fill="#7aaec4"/></svg>',
+    galleries: ['#e8f4fd','#ddeef8','#e4f0f8'],
+    includes: ['Sketch preview for approval','Full color with detailed shading','Posed character, custom outfit','Optional background','High-resolution PNG','Personal use license'],
+    price: '$—',
+    mailType: 'Full Body'
+  },
+  couple: {
+    tag: '<span class="type-tag tpink">Couple</span>',
+    title: 'Couple & Ship',
+    desc: 'Two characters together — romantic, platonic, found family, rivals, or anything in between. All pairings and dynamics welcome. LGBTQ+ friendly always. Add your detailed description here.',
+    heroBg: 'linear-gradient(135deg,#fdf4f8,#fce8f0)',
+    heroSvg: '<svg width="110" height="90" viewBox="0 0 110 90"><circle cx="36" cy="27" r="18" fill="#e8a0be"/><circle cx="74" cy="27" r="18" fill="#c47fa0"/><rect x="14" y="49" width="34" height="34" rx="7" fill="#e8a0be"/><rect x="62" y="49" width="34" height="34" rx="7" fill="#c47fa0"/></svg>',
+    galleries: ['#fde8f0','#fce0ec','#fae8f2'],
+    includes: ['Sketch preview for approval','Full color with shading','Interaction pose / composition','Optional background','High-resolution PNG','Personal use license'],
+    price: '$—',
+    mailType: 'Couple & Ship'
+  },
+  sketch: {
+    tag: '<span class="type-tag tgray">Sketches</span>',
+    title: 'Sketch Page',
+    desc: 'Multiple loose sketches of one or more characters laid out on a single page. Great for exploring expressions, poses, outfit variations, or getting a feel for a character before committing to a full piece. Add your detailed description here.',
+    heroBg: 'linear-gradient(135deg,#f5f5f0,#e8e8de)',
+    heroSvg: '<svg width="110" height="95" viewBox="0 0 110 95"><rect x="4" y="4" width="46" height="38" rx="5" fill="#a0a088" opacity="0.5"/><rect x="60" y="4" width="46" height="38" rx="5" fill="#a0a088" opacity="0.35"/><rect x="4" y="52" width="46" height="38" rx="5" fill="#a0a088" opacity="0.35"/><rect x="60" y="52" width="46" height="38" rx="5" fill="#a0a088" opacity="0.5"/></svg>',
+    galleries: ['#f0f0e8','#ececde','#f4f4ea'],
+    includes: ['Multiple sketches on one page','Light rendering / ink','Expressions, poses, or outfits','High-resolution PNG','Personal use license'],
+    price: '$—',
+    mailType: 'Sketch Page'
+  }
+};
+
+// ── NAVIGATION ──
+function go(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l => {
+    if (l.getAttribute('onclick') === `go('${id}')`) l.classList.add('active');
+  });
+  window.scrollTo(0, 0);
+}
+
+// ── COPY TEMPLATE ──
+function copyTpl() {
+  const t = `Subject: Commission Inquiry — [Your Name]\n\nCommission Type: [Chibi / Bust Portrait / Full Body / Couple & Ship / Sketch Page]\nPreferred Schedule: [Month + Year, e.g. August 2025]\nBrief Description: [Character, references, any details]\nAdditional Notes: [Anything else I should know]`;
+  navigator.clipboard.writeText(t).then(() => {
+    const b = document.querySelector('.copy-btn');
+    b.textContent = '✓ Copied!';
+    setTimeout(() => b.textContent = '📋 Copy Template', 2200);
+  });
+}
+
+// ── PORTFOLIO FILTER ──
+function portFilter(type, btn) {
+  document.querySelectorAll('.filt').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.port-card').forEach(c => {
+    c.style.display = (type === 'all' || c.dataset.type === type) ? '' : 'none';
+  });
+}
+
+// ── MODAL ──
+function openModal(key) {
+  const d = TYPES[key];
+  document.getElementById('modalHero').style.background = d.heroBg;
+  document.getElementById('modalHero').innerHTML = d.heroSvg;
+  document.getElementById('modalTag').innerHTML = d.tag;
+  document.getElementById('modalTitle').textContent = d.title;
+  document.getElementById('modalDesc').textContent = d.desc;
+  document.getElementById('modalPrice').innerHTML = `${d.price} <span>and up</span>`;
+
+  // Gallery placeholders
+  document.getElementById('modalGallery').innerHTML = d.galleries.map(c =>
+    `<div class="modal-gallery-item" style="background:${c};">Add example image here</div>`
+  ).join('');
+
+  // Includes
+  document.getElementById('modalIncludes').innerHTML = `
+    <h4>What's Included</h4>
+    <ul class="pol-list">${d.includes.map(i => `<li>${i}</li>`).join('')}</ul>
+  `;
+
+  const mailBody = `Commission Type: ${d.mailType}%0APreferred Schedule: %5BMonth %2B Year%5D%0ADescription: %5BYour character details%5D%0AAdditional Notes: %5BAnything else%5D`;
+  document.getElementById('modalInquireBtn').href = `mailto:keemino030@gmail.com?subject=Commission Inquiry — ${encodeURIComponent(d.mailType)}&body=${mailBody}`;
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ── CALENDAR ──
+let calDate = new Date();
+
+// Edit slots here: 'YYYY-M-D': { type, label }
+const slots = {};
+
+// Sample data
+(function() {
+  const n = new Date(), y = n.getFullYear(), m = n.getMonth() + 1;
+  [3,10,17,24].forEach(d => slots[`${y}-${m}-${d}`] = { type:'s-avail', label:'Open' });
+  [7,14].forEach(d => slots[`${y}-${m}-${d}`] = { type:'s-booked', label:'Booked' });
+  [21].forEach(d => slots[`${y}-${m}-${d}`] = { type:'s-hold', label:'On Hold' });
+  // Next month sample
+  const nm = m === 12 ? 1 : m + 1, ny = m === 12 ? y + 1 : y;
+  [5,12,19,26].forEach(d => slots[`${ny}-${nm}-${d}`] = { type:'s-avail', label:'Open' });
+})();
+
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function getMonthSlotCount(y, m) {
+  const total = Object.entries(slots).filter(([k]) => k.startsWith(`${y}-${m}-`)).length;
+  const avail = Object.entries(slots).filter(([k,v]) => k.startsWith(`${y}-${m}-`) && v.type === 's-avail').length;
+  return { total, avail };
+}
+
+function renderCal() {
+  const y = calDate.getFullYear(), m = calDate.getMonth();
+  document.getElementById('calLabel').textContent = `${MONTHS[m]} ${y}`;
+
+  const { avail } = getMonthSlotCount(y, m + 1);
+  const badge = document.getElementById('slotsRemaining');
+  if (avail === 0) {
+    badge.textContent = 'Fully Booked';
+    badge.className = 'cal-slots-remaining full';
+  } else if (avail <= 2) {
+    badge.textContent = `${avail} slot${avail>1?'s':''} left`;
+    badge.className = 'cal-slots-remaining few';
+  } else {
+    badge.textContent = `${avail} slots available`;
+    badge.className = 'cal-slots-remaining';
+  }
+
+  const first = new Date(y, m, 1).getDay();
+  const days = new Date(y, m + 1, 0).getDate();
+  const today = new Date();
+  let html = '';
+  for (let i = 0; i < first; i++) html += `<div class="cal-day cal-empty"><div class="day-num"></div></div>`;
+  for (let d = 1; d <= days; d++) {
+    const isToday = today.getFullYear()===y && today.getMonth()===m && today.getDate()===d;
+    const key = `${y}-${m+1}-${d}`;
+    const s = slots[key];
+    html += `<div class="cal-day${isToday?' cal-today':''}">
+      <div class="day-num">${d}</div>
+      ${s ? `<div class="slot ${s.type}">${s.label}</div>` : ''}
+    </div>`;
+  }
+  document.getElementById('calGrid').innerHTML = html;
+}
+
+function calShift(d) {
+  calDate.setMonth(calDate.getMonth() + d);
+  renderCal();
+}
+
+renderCal();
+
+// ── FORM: Month selector synced with slots ──
+function buildMonthOptions() {
+  const sel = document.getElementById('monthSelect');
+  if (!sel) return;
+  sel.innerHTML = '<option value="" disabled selected>Select a month…</option>';
+  const hint = document.getElementById('monthHint');
+  const availMonths = [];
+  const now = new Date();
+  for (let i = 0; i < 6; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+    const y = d.getFullYear(), m = d.getMonth() + 1;
+    const { avail } = getMonthSlotCount(y, m);
+    if (avail > 0) availMonths.push({ y, m, avail, label: `${MONTHS[m-1]} ${y}` });
+  }
+  if (availMonths.length === 0) {
+    const opt = document.createElement('option');
+    opt.value = ''; opt.disabled = true;
+    opt.textContent = 'No slots available right now';
+    sel.appendChild(opt);
+    if (hint) { hint.textContent = 'Check back soon or contact me directly.'; hint.className = 'form-hint full'; }
+    return;
+  }
+  availMonths.forEach(({ label, avail }) => {
+    const opt = document.createElement('option');
+    opt.value = label;
+    opt.textContent = `${label} — ${avail} slot${avail > 1 ? 's' : ''} available`;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener('change', () => {
+    const chosen = availMonths.find(x => x.label === sel.value);
+    if (!chosen || !hint) return;
+    if (chosen.avail <= 2) {
+      hint.textContent = `Only ${chosen.avail} slot${chosen.avail>1?'s':''} left — book soon!`;
+      hint.className = 'form-hint warn';
+    } else {
+      hint.textContent = `${chosen.avail} slots available this month.`;
+      hint.className = 'form-hint';
+    }
+  });
+}
+buildMonthOptions();
+
+// ── FORM: File upload ──
+const fileInput = document.getElementById('fileInput');
+const fileListEl = document.getElementById('fileList');
+const fileDrop = document.getElementById('fileDrop');
+let selectedFiles = [];
+
+function renderFileList() {
+  if (!fileListEl) return;
+  fileListEl.innerHTML = selectedFiles.map((f, i) =>
+    `<div class="file-item">
+      <span>📄 ${f.name} <span style="color:var(--soft)">(${(f.size/1024).toFixed(0)} KB)</span></span>
+      <button class="file-remove" onclick="removeFile(${i})">×</button>
+    </div>`
+  ).join('');
+}
+function removeFile(i) { selectedFiles.splice(i, 1); renderFileList(); }
+
+if (fileInput) {
+  fileInput.addEventListener('change', () => {
+    selectedFiles = [...selectedFiles, ...Array.from(fileInput.files)];
+    renderFileList(); fileInput.value = '';
+  });
+}
+if (fileDrop) {
+  fileDrop.addEventListener('dragover', e => { e.preventDefault(); fileDrop.classList.add('dragover'); });
+  fileDrop.addEventListener('dragleave', () => fileDrop.classList.remove('dragover'));
+  fileDrop.addEventListener('drop', e => {
+    e.preventDefault(); fileDrop.classList.remove('dragover');
+    selectedFiles = [...selectedFiles, ...Array.from(e.dataTransfer.files)];
+    renderFileList();
+  });
+}
+
+// ── FORM: Submit ──
+const commForm = document.getElementById('commissionForm');
+if (commForm) {
+  commForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const successEl = document.getElementById('formSuccess');
+    const errorEl = document.getElementById('formError');
+    btn.disabled = true; btn.textContent = 'Sending…';
+    successEl.style.display = 'none'; errorEl.style.display = 'none';
+    const formData = new FormData(commForm);
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData });
+      const data = await res.json();
+      if (data.success) {
+        successEl.style.display = 'block';
+        commForm.reset(); selectedFiles = []; renderFileList(); buildMonthOptions();
+      } else throw new Error();
+    } catch {
+      errorEl.style.display = 'block';
+    }
+    btn.disabled = false; btn.textContent = 'Send Inquiry →';
+  });
+}
+</script>
+</body>
+</html>
