@@ -556,6 +556,13 @@ body {
   .avatar-ph-text { font-size: 10px; }
 }
 
+/* LIGHTBOX */
+.lightbox { display:none; position:fixed; inset:0; z-index:600; background:rgba(0,0,0,0.88); align-items:center; justify-content:center; cursor:zoom-out; }
+.lightbox.open { display:flex; }
+.lightbox-img { max-width:90vw; max-height:90vh; object-fit:contain; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
+.lightbox-close { position:absolute; top:20px; right:24px; color:white; font-size:32px; cursor:pointer; opacity:0.7; transition:opacity 0.15s; line-height:1; background:none; border:none; }
+.lightbox-close:hover { opacity:1; }
+
 /* MOBILE TOP NAV */
 .mobile-nav {
   display: none;
@@ -1006,7 +1013,7 @@ body {
         <button class="filt" onclick="portFilter('sketch',this)">Sketch Page</button>
       </div>
       <div class="port-grid anim" id="portGrid">
-        <div class="port-card" data-type="chibi" style="background:#fde8f2;"><img src="images/chibi1.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="port-ov"><span>Chibi</span></div></div>
+        <div class="port-card" data-type="chibi" style="background:#fde8f2;"><img src="images/chibi1.jpg" onclick="openLightbox('images/chibi1.jpg')" style="width:100%;height:100%;object-fit:cover;cursor:zoom-in;"><div class="port-ov"><span>Chibi</span></div></div>
         <div class="port-card" data-type="portrait" style="background:#ece8fd;"><div class="port-ph">Add portrait</div><div class="port-ov"><span>Bust Portrait</span></div></div>
         <div class="port-card" data-type="fullbody" style="background:#e8f4fd;"><div class="port-ph">Add full body</div><div class="port-ov"><span>Full Body</span></div></div>
         <div class="port-card" data-type="couple" style="background:#fde8f0;"><div class="port-ph">Add couple art</div><div class="port-ov"><span>Couple & Ship</span></div></div>
@@ -1096,6 +1103,12 @@ body {
 
 </main>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+</div>
+
 <!-- TYPE DETAIL MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal" id="modal">
@@ -1176,6 +1189,18 @@ const TYPES = {
   }
 };
 
+// ── LIGHTBOX ──
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightbox(); } });
+
 // ── NAVIGATION ──
 function go(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1219,7 +1244,7 @@ function openModal(key) {
   // Gallery placeholders
   document.getElementById('modalGallery').innerHTML = d.galleries.map(c =>
     c.startsWith('images/') 
-      ? `<div class="modal-gallery-item" style="padding:0;overflow:hidden;"><img src="${c}" style="width:100%;height:100%;object-fit:cover;border-radius:7px;"></div>`
+      ? `<div class="modal-gallery-item" style="padding:0;overflow:hidden;cursor:zoom-in;" onclick="openLightbox('${c}')"><img src="${c}" style="width:100%;height:100%;object-fit:cover;border-radius:7px;"></div>`
       : `<div class="modal-gallery-item" style="background:${c};">Add example image here</div>`
   ).join('');
 
