@@ -1006,7 +1006,7 @@ body {
         <button class="filt" onclick="portFilter('sketch',this)">Sketch Page</button>
       </div>
       <div class="port-grid anim" id="portGrid">
-        <div class="port-card" data-type="chibi" style="background:#fde8f2;"><div class="port-ph">Add chibi art</div><div class="port-ov"><span>Chibi</span></div></div>
+        <div class="port-card" data-type="chibi" style="background:#fde8f2;"><img src="images/chibi1.jpg" style="width:100%;height:100%;object-fit:cover;"><div class="port-ov"><span>Chibi</span></div></div>
         <div class="port-card" data-type="portrait" style="background:#ece8fd;"><div class="port-ph">Add portrait</div><div class="port-ov"><span>Bust Portrait</span></div></div>
         <div class="port-card" data-type="fullbody" style="background:#e8f4fd;"><div class="port-ph">Add full body</div><div class="port-ov"><span>Full Body</span></div></div>
         <div class="port-card" data-type="couple" style="background:#fde8f0;"><div class="port-ph">Add couple art</div><div class="port-ov"><span>Couple & Ship</span></div></div>
@@ -1125,7 +1125,7 @@ const TYPES = {
     desc: 'Super-deformed cute style with a big head and small body. Great for icons, stickers, gifts, or just because it\'s adorable. Add your detailed description here — what makes your chibi style unique, your process, what clients can expect.',
     heroBg: 'linear-gradient(135deg,#fdf4f8,#f5dfe9)',
     heroSvg: '<svg width="90" height="110" viewBox="0 0 90 110"><circle cx="45" cy="33" r="26" fill="#c47fa0"/><rect x="18" y="62" width="54" height="40" rx="12" fill="#c47fa0"/><circle cx="45" cy="33" r="14" fill="#fff" opacity="0.2"/></svg>',
-    galleries: ['#fde8f2','#f8dff0','#fce8f5'],
+    galleries: ['images/chibi1.jpg','images/chibi2.jpg','images/chibi3.jpg', images/chibi4.jpg'],
     includes: ['Sketch preview for approval','Flat or soft cell shading','Simple or no background','Transparent PNG, high resolution','Personal use license'],
     price: '$—',
     mailType: 'Chibi'
@@ -1218,7 +1218,9 @@ function openModal(key) {
 
   // Gallery placeholders
   document.getElementById('modalGallery').innerHTML = d.galleries.map(c =>
-    `<div class="modal-gallery-item" style="background:${c};">Add example image here</div>`
+    c.startsWith('images/') 
+      ? `<div class="modal-gallery-item" style="padding:0;overflow:hidden;"><img src="${c}" style="width:100%;height:100%;object-fit:cover;border-radius:7px;"></div>`
+      : `<div class="modal-gallery-item" style="background:${c};">Add example image here</div>`
   ).join('');
 
   // Includes
