@@ -556,7 +556,8 @@ body {
   .avatar-ph-text { font-size: 10px; }
 }
 
-/* LIGHTBOX */
+.gallery-item img { pointer-events: none; }
+  /* LIGHTBOX */
 .lightbox { display:none; position:fixed; inset:0; z-index:600; background:rgba(0,0,0,0.88); align-items:center; justify-content:center; cursor:zoom-out; }
 .lightbox.open { display:flex; }
 .lightbox-img { max-width:90vw; max-height:90vh; object-fit:contain; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,0.5); }
