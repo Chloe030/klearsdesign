@@ -186,18 +186,22 @@ body {
 .gallery-label::before { content: ''; width: 20px; height: 1px; background: var(--soft); }
 .home-gallery {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
   gap: 10px;
+  max-width: 600px;
 }
 .gallery-item {
   border-radius: var(--radius); overflow: hidden;
-  aspect-ratio: 3/4; background: var(--surface2);
+  background: var(--surface2);
   display: flex; align-items: center; justify-content: center;
   position: relative; cursor: pointer; transition: opacity 0.2s;
 }
-.gallery-item:first-child { grid-column: span 2; aspect-ratio: unset; min-height: 280px; }
 .gallery-item:hover { opacity: 0.88; }
 .gallery-item:hover .gallery-ov { opacity: 1; }
+.gallery-item-main { grid-row: span 2; aspect-ratio: 1575/2064; }
+.gallery-item-chibi { aspect-ratio: 1; }
+.gallery-item-couple2 { aspect-ratio: 1575/2064; }
 .gallery-ph {
   font-size: 11px; color: var(--soft); text-align: center; padding: 14px;
   font-style: italic; position: relative; z-index: 1;
@@ -724,25 +728,17 @@ body {
     <div class="home-gallery-section">
       <div class="gallery-label anim">Recent Work</div>
       <div class="home-gallery anim">
-        <div class="gallery-item gallery-item-1" onclick="go('portfolio')" style="aspect-ratio:1575/2064;">
+        <div class="gallery-item gallery-item-main" onclick="go('portfolio')">
           <img src="images/couple3.jpg" style="width:100%;height:100%;object-fit:cover;pointer-events:none;">
           <div class="gallery-ov" style="pointer-events:none;"><span>View Portfolio</span></div>
         </div>
-        <div class="gallery-item gallery-item-2" style="aspect-ratio:1575/2064;cursor:pointer;" onclick="go('portfolio')">
+        <div class="gallery-item gallery-item-chibi" onclick="go('portfolio')">
+          <img src="images/chibi1.jpg" style="width:100%;height:100%;object-fit:cover;pointer-events:none;">
+          <div class="gallery-ov" style="pointer-events:none;"><span>Chibi</span></div>
+        </div>
+        <div class="gallery-item gallery-item-couple2" onclick="go('portfolio')">
           <img src="images/couple2.jpg" style="width:100%;height:100%;object-fit:cover;pointer-events:none;">
-          <div class="gallery-ov" style="pointer-events:none;"><span>Couple</span></div>
-        </div>
-        <div class="gallery-item gallery-item-3" onclick="go('portfolio')">
-          <div class="gallery-ph">Artwork 3</div>
-          <div class="gallery-ov" style="pointer-events:none;"><span>Couple</span></div>
-        </div>
-        <div class="gallery-item gallery-item-4" onclick="go('portfolio')">
-          <div class="gallery-ph">Artwork 4</div>
-          <div class="gallery-ov" style="pointer-events:none;"><span>Full Body</span></div>
-        </div>
-        <div class="gallery-item gallery-item-5" onclick="go('portfolio')">
-          <div class="gallery-ph">Artwork 5</div>
-          <div class="gallery-ov" style="pointer-events:none;"><span>Sketch Page</span></div>
+          <div class="gallery-ov" style="pointer-events:none;"><span>Couple & Ship</span></div>
         </div>
       </div>
     </div>
