@@ -727,9 +727,9 @@ body {
           <div class="gallery-ph">Add your featured artwork here<br><br>Recommended: your best piece</div>
           <div class="gallery-ov"><span>View Portfolio</span></div>
         </div>
-        <div class="gallery-item gallery-item-2" onclick="go('portfolio')" style="aspect-ratio:1;cursor:pointer;">
-          <img src="images/chibi1.jpg" style="width:100%;height:100%;object-fit:cover;pointer-events:none;">
-          <div class="gallery-ov"><span>Chibi</span></div>
+        <div class="gallery-item gallery-item-2" style="aspect-ratio:1;cursor:pointer;padding:0;" onclick="go('portfolio')">
+          <img src="images/chibi1.jpg" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;">
+          <div class="gallery-ov" style="pointer-events:none;"><span>Chibi</span></div>
         </div>
         <div class="gallery-item gallery-item-3" onclick="go('portfolio')">
           <div class="gallery-ph">Artwork 3</div>
@@ -1451,6 +1451,24 @@ if (commForm) {
     btn.disabled = false; btn.textContent = 'Send Inquiry →';
   });
 }
+// ── GALLERY CLICK HANDLERS ──
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.home-gallery .gallery-item').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.stopPropagation();
+      go('portfolio');
+    });
+  });
+  document.querySelectorAll('.port-card[onclick]').forEach(function(el) {
+    var src = el.getAttribute('onclick').match(/'([^']+)'/);
+    if (src) {
+      el.addEventListener('click', function(e) {
+        e.stopPropagation();
+        openLightbox(src[1]);
+      });
+    }
+  });
+});
 </script>
 </body>
 </html>
