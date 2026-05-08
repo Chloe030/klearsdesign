@@ -727,8 +727,8 @@ body {
           <div class="gallery-ph">Add your featured artwork here<br><br>Recommended: your best piece</div>
           <div class="gallery-ov"><span>View Portfolio</span></div>
         </div>
-        <div class="gallery-item gallery-item-2" onclick="go('portfolio')">
-          <div class="gallery-ph">Artwork 2</div>
+        <div class="gallery-item gallery-item-2" onclick="openLightbox('images/chibi1.jpg')" style="aspect-ratio:1;cursor:zoom-in;">
+          <img src="images/chibi1.jpg" style="width:100%;height:100%;object-fit:cover;">
           <div class="gallery-ov"><span>Chibi</span></div>
         </div>
         <div class="gallery-item gallery-item-3" onclick="go('portfolio')">
@@ -1013,12 +1013,12 @@ body {
         <button class="filt" onclick="portFilter('sketch',this)">Sketch Page</button>
       </div>
       <div class="port-grid anim" id="portGrid">
-        <div class="port-card" data-type="chibi" style="background:#fde8f2;"><img src="images/chibi1.jpg" onclick="openLightbox('images/chibi1.jpg')" style="width:100%;height:100%;object-fit:cover;cursor:zoom-in;"><div class="port-ov"><span>Chibi</span></div></div>
-        <div class="port-card" data-type="portrait" style="background:#ece8fd;"><div class="port-ph">Add portrait</div><div class="port-ov"><span>Bust Portrait</span></div></div>
-        <div class="port-card" data-type="fullbody" style="background:#e8f4fd;"><div class="port-ph">Add full body</div><div class="port-ov"><span>Full Body</span></div></div>
-        <div class="port-card" data-type="couple" style="background:#fde8f0;"><div class="port-ph">Add couple art</div><div class="port-ov"><span>Couple & Ship</span></div></div>
-        <div class="port-card" data-type="sketch" style="background:#f0f0e8;"><div class="port-ph">Add sketch page</div><div class="port-ov"><span>Sketch Page</span></div></div>
-        <div class="port-card" data-type="chibi" style="background:#f8e8fd;"><div class="port-ph">Add artwork</div><div class="port-ov"><span>Chibi</span></div></div>
+        <div class="port-card" data-type="chibi" style="background:#fde8f2;aspect-ratio:1;"><img src="images/chibi1.jpg" onclick="openLightbox('images/chibi1.jpg')" style="width:100%;height:100%;object-fit:cover;cursor:zoom-in;"><div class="port-ov"><span>Chibi</span></div></div>
+        <div class="port-card" data-type="portrait" style="background:#ece8fd;" onclick="openLightbox('')"><div class="port-ph">Add portrait</div><div class="port-ov"><span>Bust Portrait</span></div></div>
+        <div class="port-card" data-type="fullbody" style="background:#e8f4fd;" onclick="openLightbox('')"><div class="port-ph">Add full body</div><div class="port-ov"><span>Full Body</span></div></div>
+        <div class="port-card" data-type="couple" style="background:#fde8f0;" onclick="openLightbox('')"><div class="port-ph">Add couple art</div><div class="port-ov"><span>Couple & Ship</span></div></div>
+        <div class="port-card" data-type="sketch" style="background:#f0f0e8;" onclick="openLightbox('')"><div class="port-ph">Add sketch page</div><div class="port-ov"><span>Sketch Page</span></div></div>
+        <div class="port-card" data-type="chibi" style="background:#f8e8fd;aspect-ratio:1;"><img src="images/chibi2.jpg" onclick="openLightbox('images/chibi2.jpg')" style="width:100%;height:100%;object-fit:cover;cursor:zoom-in;"><div class="port-ov"><span>Chibi</span></div></div>
       </div>
     </div>
   </div>
