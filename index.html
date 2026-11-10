@@ -1336,12 +1336,20 @@ const slots = {};
   // 2026 November - 4 booked
   [1,2,3,4].forEach(d => slots[`2026-11-${d}`] = { type:'s-booked', label:'Booked' });
 
-  // 2026 December - 3 available
-  [1].forEach(d => slots[`2026-12-${d}`] = { type:'s-booked', label:'Booked' });
-  [2,3,4].forEach(d => slots[`2026-12-${d}`] = { type:'s-avail', label:'Open' });
+  // 2026 December - 4 booked
+  [1,2,3,4].forEach(d => slots[`2026-12-${d}`] = { type:'s-booked', label:'Booked' });
 
   // 2027 January - 4 available
   [1,2,3,4].forEach(d => slots[`2027-1-${d}`] = { type:'s-avail', label:'Open' });
+
+  // 2027 February - 4 available
+  [1,2,3,4].forEach(d => slots[`2027-2-${d}`] = { type:'s-avail', label:'Open' });
+
+  // 2027 March - 4 available
+  [1,2,3,4].forEach(d => slots[`2027-3-${d}`] = { type:'s-avail', label:'Open' });
+
+  // 2027 April - 4 available
+  [1,2,3,4].forEach(d => slots[`2027-4-${d}`] = { type:'s-avail', label:'Open' });
 })();
 
 const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
