@@ -448,6 +448,11 @@ body {
   display: flex; align-items: center; justify-content: center; transition: all 0.15s;
 }
 .cal-nav-btns button:hover { background: var(--pink-pale); border-color: var(--pink); color: var(--accent); }
+.cal-nav-btns button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 .cal-month-label { font-family: 'Playfair Display', serif; font-size: 22px; letter-spacing: -0.3px; }
 .cal-slots-remaining {
   font-size: 12px; padding: 5px 14px; border-radius: 20px;
@@ -1085,8 +1090,8 @@ body {
       <div class="sched-top anim">
         <div class="cal-nav">
           <div class="cal-nav-btns">
-            <button onclick="calShift(-1)">←</button>
-            <button onclick="calShift(1)">→</button>
+            <button id="calPrevBtn" onclick="calShift(-1)">←</button>
+            <button id="calNextBtn" onclick="calShift(1)">→</button>
           </div>
           <div class="cal-month-label" id="calLabel"></div>
           <div class="cal-slots-remaining" id="slotsRemaining"></div>
@@ -1351,6 +1356,21 @@ function renderCal() {
   const y = calDate.getFullYear(), m = calDate.getMonth();
   document.getElementById('calLabel').textContent = `${MONTHS[m]} ${y}`;
 
+  // Automatically disable navigation outside the 6-month window
+  const today = new Date();
+
+  const minDate = new Date(today.getFullYear(), today.getMonth(), 1);
+  const maxDate = new Date(today.getFullYear(), today.getMonth() + 5, 1);
+
+  const currentDate = new Date(y, m, 1);
+
+  const prevBtn = document.getElementById('calPrevBtn');
+  const nextBtn = document.getElementById('calNextBtn');
+
+  prevBtn.disabled = currentDate <= minDate;
+  nextBtn.disabled = currentDate >= maxDate;
+  
+  
   const { avail } = getMonthSlotCount(y, m + 1);
   const badge = document.getElementById('slotsRemaining');
   if (avail === 0) {
@@ -1382,7 +1402,21 @@ function renderCal() {
 }
 
 function calShift(d) {
-  calDate.setMonth(calDate.getMonth() + d);
+  const today = new Date();
+
+  // First month: current month
+  const minDate = new Date(today.getFullYear(), today.getMonth(), 1);
+
+  // Last month: 5 months after current month
+  const maxDate = new Date(today.getFullYear(), today.getMonth() + 5, 1);
+
+  const nextDate = new Date(calDate.getFullYear(), calDate.getMonth() + d, 1);
+
+  if (nextDate < minDate || nextDate > maxDate) {
+    return;
+  }
+
+  calDate = nextDate;
   renderCal();
 }
 
@@ -1413,14 +1447,18 @@ function buildMonthOptions() {
   const hint = document.getElementById('monthHint');
   const availMonths = [];
   const now = new Date();
-  for (let i = 0; i < 20; i++) {
-    const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
-    const y = d.getFullYear(), m = d.getMonth() + 1;
-    // Unavailable after Jan 2027
-    if (y > 2027 || (y === 2027 && m > 1)) break;
-    const { avail } = getMonthSlotCount(y, m);
-    if (avail > 0) availMonths.push({ y, m, avail, label: `${MONTHS[m-1]} ${y}` });
-  }
+    for (let i = 0; i < 6; i++) {
+      const d = new Date(now.getFullYear(), now.getMonth() + i, 1);
+      const y = d.getFullYear(), m = d.getMonth() + 1;
+    
+      const { avail } = getMonthSlotCount(y, m);
+      if (avail > 0) {
+        availMonths.push({
+          y, m, avail,
+          label: `${MONTHS[m-1]} ${y}`
+        });
+      }
+    }
   if (availMonths.length === 0) {
     const opt = document.createElement('option');
     opt.value = ''; opt.disabled = true;
