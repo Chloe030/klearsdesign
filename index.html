@@ -1386,7 +1386,6 @@ function renderCal() {
 
   const first = new Date(y, m, 1).getDay();
   const days = new Date(y, m + 1, 0).getDate();
-  const today = new Date();
   let html = '';
   for (let i = 0; i < first; i++) html += `<div class="cal-day cal-empty"><div class="day-num"></div></div>`;
   for (let d = 1; d <= days; d++) {
